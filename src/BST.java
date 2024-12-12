@@ -48,7 +48,26 @@ public class BST {
      */
     public boolean search(int val) {
         // TODO: Complete the search function
-        return false;
+            return searchHelper(root, val);
+        //
+    }
+    public boolean searchHelper(BSTNode node, int val) { // does this work for a binary search tree?
+        // base cases, if it's null...
+        if (node == null) {
+           return false;
+        }
+
+        // ... or if the node is val
+        else if (node.getVal() == val) {
+            return true;
+        }
+        // go to the left and right
+        else if (node.getVal() > val) {
+            return searchHelper(node.getLeft(), val);
+        }
+        else {
+            return searchHelper(node.getRight(), val);
+        }
     }
 
     /**
@@ -56,7 +75,20 @@ public class BST {
      */
     public ArrayList<BSTNode> getInorder() {
         // TODO: Complete inorder traversal
-        return null;
+        // create arraylist
+        ArrayList<BSTNode> inorderList = new ArrayList<BSTNode>();
+ //     inorderList.add(inorderHelper())
+
+        // add left
+        // add root
+        // add right
+        return inorderList;
+    }
+    public void inOrderHelper(BSTNode node) { // what should parameters be?
+        if (node == null) {
+            return;
+        }
+//        return node;
     }
 
     /**
@@ -64,7 +96,18 @@ public class BST {
      */
     public ArrayList<BSTNode> getPreorder() {
         // TODO: Complete preorder traversal
-        return null;
+        ArrayList<BSTNode> preOrderList = new ArrayList<BSTNode>();
+        preOrderHelper(root, preOrderList);
+        return preOrderList;
+    }
+
+    public void preOrderHelper(BSTNode node, ArrayList<BSTNode> preOrderList) {
+        if (node == null) {
+            return;
+        }
+        preOrderList.add(node);
+        preOrderHelper(node.getLeft(), preOrderList);
+        preOrderHelper(node.getRight(), preOrderList);
     }
 
     /**
