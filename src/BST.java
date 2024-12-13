@@ -76,19 +76,17 @@ public class BST {
     public ArrayList<BSTNode> getInorder() {
         // TODO: Complete inorder traversal
         // create arraylist
-        ArrayList<BSTNode> inorderList = new ArrayList<BSTNode>();
- //     inorderList.add(inorderHelper())
-
-        // add left
-        // add root
-        // add right
-        return inorderList;
+        ArrayList<BSTNode> inOrderList = new ArrayList<BSTNode>();
+        inOrderHelper(root, inOrderList);
+        return inOrderList;
     }
-    public void inOrderHelper(BSTNode node) { // what should parameters be?
+    public void inOrderHelper(BSTNode node, ArrayList<BSTNode> inOrderList) { // what should parameters be?
         if (node == null) {
             return;
         }
-//        return node;
+        inOrderHelper(node.getLeft(), inOrderList);
+        inOrderList.add(node);
+        inOrderHelper(node.getRight(), inOrderList);
     }
 
     /**
@@ -115,7 +113,18 @@ public class BST {
      */
     public ArrayList<BSTNode> getPostorder() {
         // TODO: Complete postorder traversal
-        return null;
+        ArrayList<BSTNode> postOrderList = new ArrayList<BSTNode>();
+        postOrderHelper(root, postOrderList);
+        return postOrderList;
+    }
+
+    public void postOrderHelper (BSTNode node, ArrayList<BSTNode> postOrderList) {
+        if (node == null) {
+            return;
+        }
+        preOrderHelper(node.getLeft(), postOrderList);
+        preOrderHelper(node.getRight(), postOrderList);
+        postOrderList.add(node);
     }
 
     /**
@@ -126,6 +135,24 @@ public class BST {
      */
     public void insert(int val) {
         // TODO: Complete insert
+        insertHelper(root, val);
+
+    }
+
+    public BSTNode insertHelper(BSTNode node, int val) {
+        // if there's nothing there AKA we're at the furthest node, create a new node and return it
+        if (node == null) {
+            return new BSTNode(val);
+        }
+        // check where the new value should go
+        else if (node.getVal() > val) {
+            node.setLeft(insertHelper(node.getLeft(), val));
+        }
+        else if (node.getVal() < val) {
+            node.setRight(insertHelper(node.getRight(), val));
+        }
+        // if it's already in the tree, just return (nothing changes)
+        return node;
     }
 
     /**
